@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
-require "fibonacci"
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require 'fibonacci'
 
-require "minitest/autorun"
+require 'minitest/autorun'

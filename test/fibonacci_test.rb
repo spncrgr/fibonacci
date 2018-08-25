@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class FibonacciTest < Minitest::Test
   def test_that_it_returns_13
