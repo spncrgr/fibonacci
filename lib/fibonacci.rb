@@ -1,4 +1,4 @@
-require 'fibonacci/version'
+# require 'fibonacci/version'
 
 class Fibonacci
 
