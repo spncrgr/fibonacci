@@ -1,20 +1,9 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 require 'minitest/benchmark'
 
 class FibonacciBenchTest < Minitest::Benchmark
-
-  # Called before every test method runs. Can be used
-  # to set up fixture information.
-  def setup
-    # Do nothing
-  end
-
-  # Called after every test method runs. Can be used to tear
-  # down fixture information.
-  def teardown
-    # Do nothing
-  end
-
   # Test the performance of the "straightforward" solution of generating a Fibonacci sequence to `n` and then returning
   # the value at index `n`
   def bench_sequence_constant

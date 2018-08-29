@@ -1,7 +1,8 @@
-# require 'fibonacci/version'
+# frozen_string_literal: true
+
+require 'fibonacci/version'
 
 class Fibonacci
-
   attr_reader :sequence
 
   def initialize(sequence_length)
@@ -22,9 +23,9 @@ class Fibonacci
   # location in the sequence is what is returned.
   # @return [Integer] A value from a standard Fibonacci sequence
   def value_at(index)
-    if index < 0
+    if index.negative?
       raise RangeError,
-            "The elements of a Fibonacci sequence can only be accessed using a positive index (greater than or equal to zero)."
+            'The elements of a Fibonacci sequence can only be accessed using a positive index.'
     end
     sequence[index]
   end

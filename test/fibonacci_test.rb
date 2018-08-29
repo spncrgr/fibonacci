@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class FibonacciTest < Minitest::Test
-
   def setup
     @example_sequence = Fibonacci.new(12)
   end
