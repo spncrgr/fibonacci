@@ -62,10 +62,12 @@ class Fibonacci
       raise ArgumentError,
             'Generating a negative Fibonacci numbers is not supported'
     end
-    coefficient       = 1 / Math.sqrt(5)
-    first_difference  = ((1 + Math.sqrt(5)) / 2) ** sequence_number
-    second_difference = ((1 - Math.sqrt(5)) / 2) ** sequence_number
+    n = BigDecimal("#{sequence_number}")
+
+    coefficient       = BigDecimal("#{1 / Math.sqrt(5)}")
+    first_difference  = BigDecimal("#{((1 + Math.sqrt(5)) / 2) ** n}")
+    second_difference = BigDecimal("#{((1 - Math.sqrt(5)) / 2) ** n}")
     result            = (coefficient * first_difference) - (coefficient * second_difference)
-    result.round
+    result.to_i
   end
 end
