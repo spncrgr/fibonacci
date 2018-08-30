@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'bigdecimal'
 require 'fibonacci/version'
 
 class Fibonacci
@@ -20,10 +21,8 @@ class Fibonacci
       raise ArgumentError, 'The generated sequence must have a length of at least one'
     end
 
-    length    = sequence_length
-    # length    = sequence_length - 1
-    @sequence = Array.new(length, 1)
-    length.times do |i|
+    @sequence = Array.new(sequence_length, 1)
+    sequence_length.times do |i|
       # Manually set the value of the first two elements of the generated sequence to the number 1
       if i <= 1
         @sequence[i] = 1
@@ -37,39 +36,35 @@ class Fibonacci
   # @example Given a standard Fibonacci sequence, return the value of the sixth entry of the sequence.
   #   sequence.value_at(6) #=> 13
   #
-  # @example Negative index values are not supported
+  # @example Negative sequence number values are not supported
   #   sequence.value_at(-1) #=> RangeError
   #
-  # @param [Integer] index A zero-based index which applies to a standard Fibonacci sequence. The value at that
-  # location in the sequence is what is returned.
-  # @return [Integer] A value from a standard Fibonacci sequence
-  def value_at(index)
-    if index.negative?
+  # @param [Integer] sequence_number The 'nth' entry of a generated Fibonacci sequence.
+  # @return [Integer] The value of the 'nth' entry of the generated Fibonacci sequence
+  def value_at(sequence_number)
+    if sequence_number.negative?
       raise RangeError,
-            'The elements of a Fibonacci sequence can only be accessed using a positive index.'
+            'The elements of a Fibonacci sequence can only be accessed using a positive sequence number.'
     end
-    sequence[index]
+    sequence[sequence_number - 1]
   end
 
   # @example Given a standard Fibonacci sequence, return the value of the sixth entry of the sequence.
-  #   Fibonacci.value_from_index(6) #=> 13
+  #   Fibonacci.value_at(6) #=> 13
   #
   # @example Generating negative Fibonacci numbers is not supported
-  #   sequence.value_from_index(-1) #=> RangeError
+  #   Fibonacci.value_at(-1) #=> RangeError
   #
-  # @param [Integer] index A zero-based index which applies to a standard Fibonacci sequence. The value at that
-  # location is calculated and returned.
-  # @return [Integer] A value from a standard Fibonacci sequence
-  def self.value_from_index(index)
-    if index.negative?
+  # @param [Integer] sequence_number The 'nth' entry of a standard Fibonacci sequence.
+  # @return [Integer] The value of the 'nth' entry of a standard Fibonacci sequence
+  def self.value_at(sequence_number)
+    if sequence_number.negative?
       raise ArgumentError,
             'Generating a negative Fibonacci numbers is not supported'
     end
-    n = index + 1
-
     coefficient       = 1 / Math.sqrt(5)
-    first_difference  = ((1 + Math.sqrt(5)) / 2) ** n
-    second_difference = ((1 - Math.sqrt(5)) / 2) ** n
+    first_difference  = ((1 + Math.sqrt(5)) / 2) ** sequence_number
+    second_difference = ((1 - Math.sqrt(5)) / 2) ** sequence_number
     result            = (coefficient * first_difference) - (coefficient * second_difference)
     result.round
   end

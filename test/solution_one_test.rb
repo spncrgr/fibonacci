@@ -24,9 +24,9 @@ class SolutionOneTest < Minitest::Test
     assert_equal(expected, @example_sequence.sequence)
   end
 
-  def test_that_it_returns_index_6
+  def test_that_it_returns_entry_6
     actual = @example_sequence.value_at(6)
-    assert_equal(13, actual)
+    assert_equal(8, actual)
   end
 
   def test_that_it_raises_range_error
