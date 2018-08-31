@@ -1,0 +1,53 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Add 'lib' dir to the load paths
+$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
+
+require 'bundler/setup'
+require 'thor'
+require 'fibonacci'
+
+class FibCLI < Thor
+  map 'g' => :generate, 'c' => :calculate
+
+  desc 'generate NUM', 'generate a Fibonacci sequence and return the NUMth number'
+  long_desc <<-LONGDESC
+  'fib generate NUM' will create a sequence of Fibonacci numbers NUM numbers in
+  length. By default, 'fib generate' will return the last number in the sequence.
+
+  Examples:
+  \x5#Generate a sequence 10 numbers in length and return the value of the 10th item in the sequence (i.e. 55).
+  \x5\x5  > $ fib generate 10       #=> 55
+
+  #Generate a sequence 10 numbers in length and return the value of the 6th item in the sequence (i.e. 8).
+  \x5\x5  > $ fib generate 10 -V 6  #=> 8
+  LONGDESC
+  option :value_at,
+         type:    :numeric,
+         desc:    'Return the Nth item in the sequence',
+         aliases: '-V'
+
+  def generate(num)
+    sequence_number = num.to_i
+    value_at = options[:value_at] || sequence_number
+    fib = Fibonacci.new(sequence_number)
+    puts fib.value_at(value_at)
+  end
+
+  desc 'calculate NUM', 'Return the NUMth item in a standard Fibonacci sequence'
+  long_desc <<-LONGDESC
+  'fib calculate NUM' will calculate the NUMth number of a standard Fibonacci sequence (i.e. 1, 1, 2, ...). However,
+  unlike 'fib generate', the sequence will not be generated.
+
+  Example:
+  \x5#Calculate the 10th Fibonacci number of a standard sequence (i.e. 55)
+  \x5  > $ fib calculate 10      #=> 55
+  LONGDESC
+  def calculate(num)
+    sequence_number = num.to_i
+    puts Fibonacci.value_at(sequence_number)
+  end
+end
+
+FibCLI.start(ARGV)
