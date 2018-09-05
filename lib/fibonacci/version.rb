@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 class Fibonacci
-  VERSION = '0.1.0'
+  VERSION = File.read(File.expand_path("#{APP_ROOT}/VERSION"))
 end

@@ -1,12 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Add 'lib' dir to the load paths
-$LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
+load File.expand_path('../init.rb', __dir__)
 
-require 'bundler/setup'
 require 'thor'
-require 'fibonacci'
 
 class FibCLI < Thor
   map 'g' => :generate, 'c' => :calculate
