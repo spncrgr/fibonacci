@@ -9,4 +9,4 @@ COPY . .
 
 RUN bundle install --local
 
-ENTRYPOINT /opt/app-root/app/exe/fib
+ENTRYPOINT ["/opt/app-root/app/exe/fib"]
