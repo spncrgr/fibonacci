@@ -1,35 +1,75 @@
 # Fibonacci
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/fibonacci`. To experiment with that code, run `bin/console` for an interactive prompt.
+This is a demo application for providing a Fibonacci number at a given location.
+The application assumes a standard Fibonacci sequence `[1, 1, 2, 3, 5, ...]`.
 
-TODO: Delete this and the text above, and describe your gem
+There are two methods used:
+  1. Generation
+     1. Generate a Fibonacci sequence of length _n_
+     1. Return the Fibonacci number at location _v_
+  1. Calculation
+     1. Use a formula to calculate the Fibonacci number at location _v_ (without generating the sequence).
+     
+## How to run
 
-## Installation
+### Docker
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'fibonacci'
+The easiest way to run this program is via the Docker image.
+```bash
+docker run spncrgr/fibonacci help
 ```
 
-And then execute:
+This will pull the image from Docker Hub and print out it's usage:
+```text
+Commands:
+  fib calculate NUM   # Return the NUMth item in a standard Fibonacci sequence
+  fib generate NUM    # generate a Fibonacci sequence and return the NUMth nu...
+  fib help [COMMAND]  # Describe available commands or one specific command
+```
 
-    $ bundle
+### Ruby
 
-Or install it yourself as:
+If you have Ruby installed on your system, you can also run the application directly by cloning this repo.
+```bash
+$ git clone https://github.com/spncrgr/fibonacci.git
+$ cd fibonacci
+$ ruby exe/fib help
+```
 
-    $ gem install fibonacci
+This will print out the same usage instructions as with the Docker image.
 
-## Usage
+## Example Usage
 
-TODO: Write usage instructions here
+> Note: The examples provide the commands for running via Docker image or Ruby, respectively.
 
-## Development
+##### Generate a sequence of the first 10 Fibonacci numbers and return the value of the 10th number:
+```bash
+$ docker run spncrgr/fibonacci generate 10
+# OR
+$ ruby exe/fib generate 10
+```
+OUTPUT:
+```text
+Generating a sequence of 10 Fibonacci number(s)...
+The Fibonacci number at entry 10 is 55
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Time:
+       user     system      total        real
+   0.000041   0.000003   0.000044 (  0.000012)
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+##### Calculate the value of the 10th number in a Fibonacci sequence:
+```bash
+$ docker run spncrgr/fibonacci calculate 10
+# OR
+$ ruby exe/fib calculate 10
+```
+OUTPUT:
+```text
+The Fibonacci number at position 10 of a standard
+sequence is 55
 
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/fibonacci.
+Time:
+       user     system      total        real
+   0.000166   0.000154   0.000320 (  0.000675)
+```
