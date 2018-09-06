@@ -29,9 +29,14 @@ class FibCLI < Thor
   def generate(num)
     sequence_number = num.to_i
     value_at        = options[:value_at] || sequence_number
-    puts "Generating a sequence of #{sequence_number} Fibonacci number(s)."
-    fib = Fibonacci.new(sequence_number)
-    puts "The Fibonacci number at entry #{value_at} is #{fib.value_at(value_at)}"
+    puts "Generating a sequence of #{sequence_number} Fibonacci number(s)..."
+
+    bench_result = run_with_benchmarks do
+      @fib = Fibonacci.new(sequence_number)
+    end
+    puts "The Fibonacci number at entry #{value_at} is #{@fib.value_at(value_at)}"
+    puts "\nTime:"
+    puts bench_result.string
   end
 
   desc 'calculate NUM', 'Return the NUMth item in a standard Fibonacci sequence'
@@ -46,11 +51,35 @@ class FibCLI < Thor
 
   def calculate(num)
     sequence_number = num.to_i
+    bench_result = run_with_benchmarks do
+      @fib_number = Fibonacci.value_at(sequence_number)
+    end
     puts <<~OUT
       The Fibonacci number at position #{sequence_number} of a standard
-      sequence is #{Fibonacci.value_at(sequence_number)}
+      sequence is #{@fib_number.to_i}
     OUT
+    puts "\nTime:"
+    puts bench_result.string
   end
+
+  private
+
+    # Execute code, wrapped by a Benchmark operation, and capture the output so that it can be printed last.
+    def run_with_benchmarks
+      original_stdout = $stdout
+      # Redirect $stdout to a variable that can be printed later
+      temp_stdout     = StringIO.new
+      $stdout         = temp_stdout
+
+      require 'benchmark'
+      Benchmark.bm do |x|
+        x.report { yield } if block_given?
+      end
+
+      # Restore $stdout
+      $stdout = original_stdout
+      temp_stdout
+    end
 end
 
 FibCLI.start(ARGV)

@@ -66,6 +66,6 @@ class Fibonacci
 
     first_difference  = BigDecimal((((1 + Math.sqrt(5)) / 2)**n).to_s)
     second_difference = BigDecimal((((1 - Math.sqrt(5)) / 2)**n).to_s)
-    (COEFFICIENT * first_difference) - (COEFFICIENT * second_difference).to_i
+    (COEFFICIENT * first_difference) - (COEFFICIENT * second_difference)
   end
 end

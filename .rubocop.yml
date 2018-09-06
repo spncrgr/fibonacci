@@ -17,3 +17,6 @@ Metrics/AbcSize:
 # URISchemes: http, https
 Metrics/LineLength:
   Max: 120
+
+Layout/IndentationConsistency:
+  EnforcedStyle: rails
