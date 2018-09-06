@@ -27,9 +27,10 @@ class FibCLI < Thor
 
   def generate(num)
     sequence_number = num.to_i
-    value_at = options[:value_at] || sequence_number
+    value_at        = options[:value_at] || sequence_number
+    puts "Generating a sequence of #{sequence_number} Fibonacci number(s)."
     fib = Fibonacci.new(sequence_number)
-    puts fib.value_at(value_at)
+    puts "The Fibonacci number at entry #{value_at} is #{fib.value_at(value_at)}"
   end
 
   desc 'calculate NUM', 'Return the NUMth item in a standard Fibonacci sequence'
@@ -41,9 +42,13 @@ class FibCLI < Thor
   \x5#Calculate the 10th Fibonacci number of a standard sequence (i.e. 55)
   \x5  > $ fib calculate 10      #=> 55
   LONGDESC
+
   def calculate(num)
     sequence_number = num.to_i
-    puts Fibonacci.value_at(sequence_number)
+    puts <<~OUT
+      The Fibonacci number at position #{sequence_number} of a standard
+      sequence is #{Fibonacci.value_at(sequence_number)}
+    OUT
   end
 end
 
