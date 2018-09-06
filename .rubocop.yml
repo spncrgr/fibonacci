@@ -10,6 +10,9 @@ Style/Documentation:
 Style/HashSyntax:
   EnforcedStyle: ruby19
 
+Metrics/AbcSize:
+  Max: 25
+
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
 Metrics/LineLength:

@@ -31,7 +31,7 @@ task :release, [:version] do |_, args|
   push_task.invoke(tag)
   push_task.reenable
   push_task.invoke('spncrgr/fibonacci:latest')
-rescue
+rescue StandardError
   # If any exception is thrown, restore the VERSION file content.
   File.write(VERSION_FILE, CURRENT_APP_VERSION)
 end

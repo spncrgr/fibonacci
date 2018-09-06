@@ -6,6 +6,8 @@ require 'fibonacci/version'
 class Fibonacci
   attr_reader :sequence
 
+  COEFFICIENT = BigDecimal((1 / Math.sqrt(5)).to_s)
+
   # Create an instance of the Fibonacci class and generate a sequence. The sequence will be available
   # via Fibonacci.sequence
   #
@@ -17,9 +19,7 @@ class Fibonacci
   # @return [Array<Intger>] A sequence of Fibonacci numbers, starting at 1 and continuing
   # to a length of 'sequence_length'
   def initialize(sequence_length)
-    if sequence_length <= 0
-      raise ArgumentError, 'The generated sequence must have a length of at least one'
-    end
+    raise ArgumentError, 'The generated sequence must have a length of at least one' if sequence_length <= 0
 
     @sequence = Array.new(sequence_length, 1)
     sequence_length.times do |i|
@@ -62,12 +62,10 @@ class Fibonacci
       raise ArgumentError,
             'Generating a negative Fibonacci numbers is not supported'
     end
-    n = BigDecimal("#{sequence_number}")
+    n = BigDecimal(sequence_number.to_s)
 
-    coefficient       = BigDecimal("#{1 / Math.sqrt(5)}")
-    first_difference  = BigDecimal("#{((1 + Math.sqrt(5)) / 2) ** n}")
-    second_difference = BigDecimal("#{((1 - Math.sqrt(5)) / 2) ** n}")
-    result            = (coefficient * first_difference) - (coefficient * second_difference)
-    result.to_i
+    first_difference  = BigDecimal((((1 + Math.sqrt(5)) / 2)**n).to_s)
+    second_difference = BigDecimal((((1 - Math.sqrt(5)) / 2)**n).to_s)
+    (COEFFICIENT * first_difference) - (COEFFICIENT * second_difference).to_i
   end
 end
